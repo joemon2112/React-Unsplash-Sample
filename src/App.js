@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Header from './components/Header';
+import Search from './components/Search';
+import unsplash from './api/unsplash';
+import ImgList from './components/ImgList';
 
-function App() {
+function App(){
+  const [images, setImages] = React.useState([]);
+  const onSearchSubmit = async(term) => {
+    
+    const response = await unsplash.get('search/photos', {
+      params: { query: term}
+    });
+    setImages(response.data.results);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header>
+        <Search onSearchSubmit={onSearchSubmit}/>
+      </Header>
+      <div>
+        <ImgList images={images}/>
+      </div>
     </div>
   );
 }
+
 
 export default App;

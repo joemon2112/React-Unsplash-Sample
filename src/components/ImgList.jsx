@@ -20,10 +20,10 @@ const ImgList = (props) => {
     });
 
     return (
-        <div 
+        <div    
           onScroll={handleScroll}
           style={{ height: '1000px', overflow: 'scroll' }}
-          className="image-list">{images}
+          className="img-list">{images}
         </div>
     );    
 };
